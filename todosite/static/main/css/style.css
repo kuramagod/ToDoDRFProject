@@ -1,0 +1,231 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;               /* ← убирает отступы по умолчанию */
+    padding: 0;              /* ← убирает внутренние отступы */
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.task {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.task-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    background-color: #2154e2;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.task-header input[name="name"] {
+    background-color: #2154e2;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0; /* Убираем внутренние отступы, так как они уже есть у родителя */
+    margin: 0;
+    outline: none; /* Убираем обводку при фокусе */
+}
+
+.task-header input[name="name"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.task-content {
+    position: relative;
+    min-height: 150px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.task-description {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.task-deadline {
+    font-size: 14px;
+    color: #d32f2f;
+    margin-bottom: auto;
+}
+
+.task-date-create {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    margin: 0;
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+    margin-top: auto;
+}
+
+.task-footer {
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    background-color: #fafafa;
+}
+
+.task-footer-process {
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    background-color: #fafafa;
+}
+
+.task-footer-process p {
+    margin: 0;
+    font-weight: bold;
+    color: #eb9533;
+}
+
+.modal-task-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    background-color: #fafafa;
+}
+
+.task-footer p {
+    margin: 0;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay .task {
+    width: 150%; /* Увеличиваем на 50% от текущего размера */
+    max-width: 450px; /* Можно установить максимальную ширину */
+    transform: scale(1.1); /* Альтернативный вариант масштабирования */
+}
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.close-task {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 14px;
+}
+
+.open-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+select.form-control {
+    appearance: none;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+input[type="datetime-local"].form-control {
+    color: #333;
+}
+
+input[type="color"].form-control {
+    padding: 0;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.delete-task, .save-task {
+    margin-top: 13px;
+    cursor: pointer;
+}
+
+.page-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #2154e2;
+color: white;
+padding: 15px 20px;
+margin-bottom: 20px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+font-size: 24px;
+margin: 0;
+}
+
+.add-task-btn {
+background-color: white;
+color: #2154e2;
+border: none;
+padding: 10px 16px;
+font-size: 14px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-task-btn:hover {
+background-color: #f5f5f5;
+transform: scale(1.05);
+}

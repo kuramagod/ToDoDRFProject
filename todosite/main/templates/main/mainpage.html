@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список задач</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <script src="{% static 'main/js/script.js' %}"></script>
+
+</head>
+<body>
+  <header class="page-header">
+  <h1 class="title">Список задач</h1>
+  <button class="add-task-btn" id="addTaskBtn">+ Добавить заметку</button>
+</header>
+  <div class="main">
+      {% for task in tasks %}
+        <div class="task">
+          <div class="task-header editTaskBtn" data-id="{{ task.id }}" data-color="{{ task.color }}" style="background-color: {{ task.color }};">{{ task.name }}</div>
+          <div class="task-content">
+            <p class="task-description">Описание: {{ task.description }}</p>
+              <p class="task-deadline" data-end="{{ task.end_date|date:'Y-m-d\\TH:i' }}"><b>Срок: {{ task.end_date|date:"G:i d.m.Y" }}</b></p>
+            <p class="task-date-create">Создано: {{ task.start_date|date:"d.m.Y" }}</p>
+          </div>
+          <div class="{% if task.status == 'В процессе' %} task-footer-process {% else %} task-footer {% endif %}" >
+            <p>{{ task.status }}</p>
+          </div>
+        </div>
+      {% endfor %}
+
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+      <div class="task">
+        <div class="task-header"><input name="name" class="form-control" type="text" value="Имя заметки">
+          <a class="close-task" id="closeTaskBtn">X</a>
+        </div>
+        <div class="task-content">
+            <p class="task-color"><b>Цвет</b>:</p>
+            <input name="color" class="form-control" type="color" value="#ffffff">
+          <p class="task-description">Описание:</p> <textarea name="description" class="form-control">Описание задачи</textarea>
+          <p class="task-deadline"><b>Срок</b>:</p><input name="end_date" class="form-control" type="datetime-local" value="">
+            <input type="hidden" name="task_id" value="">
+        </div>
+        <div class="modal-task-footer">
+          <a class="delete-task">🗑️</a>
+          <select class="form-control" name="status">
+            <option value="В процессе">В процессе</option>
+            <option value="Выполнено">Выполнено</option>
+          </select>
+          <a class="save-task">💾</a>
+        </div>
+      </div>
+  </div>
+</body>
+</html>
