@@ -12,7 +12,7 @@ class TaskModel(models.Model):
     start_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата начала')
     end_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата завершения')
     color = models.CharField(max_length=7, default='#ffffff')
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='user')
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='tasks')
 
     def __str__(self):
         return f"Задача - {self.name}"

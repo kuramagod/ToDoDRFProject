@@ -115,6 +115,91 @@ body {
     color: #4caf50;
 }
 
+.modal-auth, .modal-reg {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* необязательно, но полезно */
+}
+
+.modal-auth.active {
+    display: flex; /* показать при необходимости */
+}
+
+.modal-auth form,
+.modal-auth-content,
+.modal-reg-content {
+    background-color: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-auth input.form-control {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.modal-auth .login-btn,
+.modal-reg .register-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-auth .login-btn:hover,
+.modal-reg .register-btn:hover {
+    background-color: #0056b3;
+}
+
+.reg-btn {
+    color: blue;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.reg-btn:hover {
+    color: #326df0;
+}
+
+.title-auth, .title-reg {
+    text-align: center;
+}
+
+.close-auth, .close-reg {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-auth:hover,
+.close-reg:hover {
+    color: #000;
+}
+
 .modal-overlay {
     display: none;
     position: fixed;

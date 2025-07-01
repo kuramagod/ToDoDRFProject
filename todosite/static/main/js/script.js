@@ -2,9 +2,50 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeTaskBtn = document.getElementById('closeTaskBtn');
     const modalOverlay = document.getElementById('modalOverlay');
     const addTaskBtn = document.getElementById('addTaskBtn');
+    const modalAuth = document.getElementById('modalAuth');
+    const authBtn = document.getElementById('authBtn');
+    const closeAuthBtn = document.getElementById('closeAuthBtn')
+    const modalReg = document.getElementById('modalReg');
+    const regBtn = document.getElementById('regBtn');
+    const closeRegBtn = document.getElementById('closeRegBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-    // Исправлено: получаем все элементы по классу
     const editTaskBtns = document.querySelectorAll('.editTaskBtn');
+    if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        const response = await fetch(`/api-auth/logout/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            }
+        });
+
+        if (response.ok) {
+            location.reload();
+        } else {
+            alert('Ошибка выхода из аккаунта');
+        }
+    });
+    }
+
+    if (authBtn) {
+    authBtn.addEventListener("click", function () {
+        modalAuth.style.display = "flex";
+    });
+    }
+
+    closeAuthBtn.addEventListener("click", function () {
+        modalAuth.style.display = "none";
+    });
+
+    regBtn.addEventListener("click", function () {
+        modalReg.style.display = "flex";
+        modalAuth.style.display = "none";
+    });
+
+    closeRegBtn.addEventListener("click", function () {
+        modalReg.style.display = "none";
+    });
 
     editTaskBtns.forEach((editTaskBtn) => {
         editTaskBtn.addEventListener('click', (e) => {
@@ -40,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    if (addTaskBtn) {
     addTaskBtn.addEventListener('click', () => {
         // Очищаем форму для новой задачи
         modalOverlay.querySelector('input[name="task_id"]').value = '';
@@ -49,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         modalOverlay.querySelector('select[name="status"]').value = 'В процессе';
         modalOverlay.style.display = 'flex';
     });
+    }
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -61,7 +104,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const status = document.querySelector('select[name="status"]').value;
         const current_date = new Date();
         const start_date = `${current_date.getHours()}:${current_date.getMinutes()} ${current_date.getDate()}.${current_date.getMonth() + 1}.${current_date.getFullYear()}`;
-        const user = 1;
+
+        const response_userid = await fetch('/api/v1/users/get_user_id/', {
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        const data = await response_userid.json();
+        const user = data.id;
 
         const payload = {
             name,
@@ -88,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (response.ok) {
 //            alert(id ? 'Задача обновлена!' : 'Задача создана!');
             location.reload();
+            console.log(payload)
         } else {
             alert('Ошибка при сохранении задачи');
         }
@@ -112,6 +163,72 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    document.querySelector('.login-btn').addEventListener('click', async () => {
+        const username = document.querySelector('#id_login_username').value;
+        const password = document.querySelector('#id_login_password').value;
+
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        try {
+            const response = await fetch(`/api-auth/login/?next=/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken, // Убедись, что он есть
+                },
+                credentials: 'include', // очень важно для сессий
+                body: formData,
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                const text = await response.text();
+                console.log('Ошибка входа:', text);
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+    });
+
+    document.querySelector('.register-btn').addEventListener('click', async () => {
+        const username = document.querySelector('#id_reg_username').value;
+        const password = document.querySelector('#id_reg_password').value;
+        const second_password = document.querySelector('#id_second_reg_password').value;
+
+        if (password !== second_password) {
+            const errorDiv = document.getElementById('reg-error');
+            errorDiv.textContent = 'Пароли не совпадают!';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        console.log(formData);
+
+        try {
+            const response = await fetch('/api/v1/users/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                },
+                credentials: 'include',
+                body: formData,
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                const text = await response.text();
+                console.log('Ошибка регистрации:', text);
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+    });
 
     closeTaskBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';

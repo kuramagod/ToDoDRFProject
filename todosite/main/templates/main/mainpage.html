@@ -12,7 +12,12 @@
 <body>
   <header class="page-header">
   <h1 class="title">Список задач</h1>
+  {% if user.is_authenticated %}
   <button class="add-task-btn" id="addTaskBtn">+ Добавить заметку</button>
+  <a class="logout" id="logoutBtn">Выход</a>
+  {% else %}
+  <button class="add-task-btn" id="authBtn">Авторизация</button>
+  {% endif %}
 </header>
   <div class="main">
       {% for task in tasks %}
@@ -53,5 +58,29 @@
         </div>
       </div>
   </div>
+
+<div class="modal-auth" id="modalAuth">
+  <div class="modal-auth-content">
+    <a class="close-auth" id="closeAuthBtn">X</a>
+      <h2 class="title-auth">Авторизация</h2>
+    <input type="text" name="username" class="form-control" id="id_login_username" placeholder="Логин" required>
+    <input type="password" name="password" class="form-control" id="id_login_password" placeholder="Пароль" required>
+      <button name="submit" value="Вход" class="login-btn" id="loginBtn">Вход</button>
+      <a class="reg-btn" id="regBtn">Регистрация</a>
+  </div>
+</div>
+
+<div class="modal-reg" id="modalReg">
+  <div class="modal-reg-content">
+    <a class="close-reg" id="closeRegBtn">X</a>
+      <h2 class="title-reg">Регистрацию</h2>
+      <input type="text" name="username" class="form-control" id="id_reg_username" placeholder="Логин" required>
+      <input type="password" name="password" class="form-control" id="id_reg_password" placeholder="Пароль" required>
+      <input type="password" name="password" class="form-control" id="id_second_reg_password" placeholder="Повторите пароль" required>
+      <div id="reg-error" style="color: red; display: none; margin: 5px;"></div>
+      <button name="submit" value="Зарегистрироваться" class="register-btn" id="registerBtn">Зарегистрироваться</button>
+  </div>
+</div>
+
 </body>
 </html>
