@@ -12,12 +12,14 @@
 <body>
   <header class="page-header">
   <h1 class="title">Список задач</h1>
-  {% if user.is_authenticated %}
-  <button class="add-task-btn" id="addTaskBtn">+ Добавить заметку</button>
-  <a class="logout" id="logoutBtn">Выход</a>
-  {% else %}
-  <button class="add-task-btn" id="authBtn">Авторизация</button>
-  {% endif %}
+    <div class="buttons-group">
+      {% if user.is_authenticated %}
+        <button class="add-task-btn" id="addTaskBtn">+ Добавить заметку</button>
+        <a class="logout" id="logoutBtn">Выход</a>
+      {% else %}
+        <button class="add-task-btn" id="authBtn">Авторизация</button>
+      {% endif %}
+  </div>
 </header>
   <div class="main">
       {% for task in tasks %}

@@ -80,6 +80,10 @@ body {
     margin-top: auto;
 }
 
+.logout {
+    cursor: pointer;
+}
+
 .task-footer {
     padding: 10px 15px;
     border-top: 1px solid #eee;
@@ -283,19 +287,25 @@ input[type="color"].form-control {
 }
 
 .page-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-background-color: #2154e2;
-color: white;
-padding: 15px 20px;
-margin-bottom: 20px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2154e2;
+    color: white;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
 font-size: 24px;
 margin: 0;
+}
+
+.buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .add-task-btn {

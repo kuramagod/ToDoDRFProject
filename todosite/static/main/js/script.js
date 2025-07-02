@@ -1,3 +1,29 @@
+async function get_user_id() {
+    try {
+        const response = await fetch('/api/v1/users/get_user_id/', {
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            return data.id ?? null;
+        } else {
+            return null; // Не авторизован
+        }
+    } catch (error) {
+        console.error("Ошибка при получении ID пользователя:", error);
+        return null;
+    }
+}
+
+async function checkAuth() {
+    const userId = await get_user_id();
+    if (!userId) {
+        modalAuth.style.display = "flex";
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const closeTaskBtn = document.getElementById('closeTaskBtn');
     const modalOverlay = document.getElementById('modalOverlay');
@@ -9,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const regBtn = document.getElementById('regBtn');
     const closeRegBtn = document.getElementById('closeRegBtn');
     const logoutBtn = document.getElementById('logoutBtn');
+
+    checkAuth();
 
     const editTaskBtns = document.querySelectorAll('.editTaskBtn');
     if (logoutBtn) {
@@ -34,8 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     }
 
-    closeAuthBtn.addEventListener("click", function () {
-        modalAuth.style.display = "none";
+    closeAuthBtn.addEventListener("click", async function () {
+        const userId = await get_user_id(); // проверяем авторизацию
+
+        if (userId) {
+            modalAuth.style.display = "none"; // разрешаем закрытие
+        }
     });
 
     regBtn.addEventListener("click", function () {
@@ -43,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
         modalAuth.style.display = "none";
     });
 
-    closeRegBtn.addEventListener("click", function () {
+    closeRegBtn.addEventListener("click", async function () {
+        modalAuth.style.display = "flex";
         modalReg.style.display = "none";
     });
 
@@ -105,14 +138,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const current_date = new Date();
         const start_date = `${current_date.getHours()}:${current_date.getMinutes()} ${current_date.getDate()}.${current_date.getMonth() + 1}.${current_date.getFullYear()}`;
 
-        const response_userid = await fetch('/api/v1/users/get_user_id/', {
-            method: 'GET',
-            credentials: 'include',
-        });
-
-        const data = await response_userid.json();
-        const user = data.id;
-
         const payload = {
             name,
             description,
@@ -120,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
             start_date,
             end_date,
             color,
-            user,
         };
 
         const method = id ? 'PATCH' : 'POST';
@@ -232,11 +256,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeTaskBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';
-    });
-
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-          modalOverlay.style.display = 'none';
-        }
     });
 });

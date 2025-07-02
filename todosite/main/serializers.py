@@ -7,7 +7,8 @@ from .models import TaskModel
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskModel
-        fields = ['id', 'name', 'description', 'status', 'end_date', 'color', 'user']
+        fields = ['id', 'name', 'description', 'status', 'end_date', 'color']
+        read_only_fields = ['user']
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
