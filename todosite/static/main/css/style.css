@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-    margin: 0;               /* ← убирает отступы по умолчанию */
-    padding: 0;              /* ← убирает внутренние отступы */
+    margin: 0;
+    padding: 0;
 }
 
 .main {
@@ -13,20 +13,20 @@ body {
 }
 
 .task {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer; /* Добавляет "указатель" при наведении */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
 }
 
 .task:hover {
-  transform: translateY(-4px); /* Лёгкий подъём */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Более сильная тень */
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .task-header {
@@ -46,9 +46,9 @@ body {
     border: none;
     font-weight: bold;
     font-size: 18px;
-    padding: 0; /* Убираем внутренние отступы, так как они уже есть у родителя */
+    padding: 0;
     margin: 0;
-    outline: none; /* Убираем обводку при фокусе */
+    outline: none;
 }
 
 .task-header input[name="name"]::placeholder {
@@ -135,11 +135,11 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* необязательно, но полезно */
+    z-index: 1000;
 }
 
 .modal-auth.active {
-    display: flex; /* показать при необходимости */
+    display: flex;
 }
 
 .modal-auth form,
@@ -223,9 +223,9 @@ body {
 }
 
 .modal-overlay .task {
-    width: 150%; /* Увеличиваем на 50% от текущего размера */
-    max-width: 450px; /* Можно установить максимальную ширину */
-    transform: scale(1.1); /* Альтернативный вариант масштабирования */
+    width: 150%;
+    max-width: 450px;
+    transform: scale(1.1);
 }
 .modal {
     background: white;
@@ -305,29 +305,29 @@ input[type="color"].form-control {
 }
 
 .title {
-font-size: 24px;
-margin: 0;
+    font-size: 24px;
+    margin: 0;
 }
 
 .buttons-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .add-task-btn {
-background-color: white;
-color: #2154e2;
-border: none;
-padding: 10px 16px;
-font-size: 14px;
-border-radius: 8px;
-cursor: pointer;
-font-weight: bold;
-transition: background-color 0.2s, transform 0.2s;
+    background-color: white;
+    color: #2154e2;
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 .add-task-btn:hover {
-background-color: #f5f5f5;
-transform: scale(1.05);
+    background-color: #f5f5f5;
+    transform: scale(1.05);
 }

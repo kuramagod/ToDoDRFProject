@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView
 from rest_framework import viewsets
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
@@ -11,12 +12,18 @@ from .models import TaskModel
 from .permissions import IsOwner
 from .serializers import TaskSerializer, UserSerializer
 
-@csrf_exempt
-def task_list(request):
-    if not request.user.is_authenticated:
-        return render(request, "main/mainpage.html")
-    tasks = TaskModel.objects.filter(user=request.user)
-    return render(request, "main/mainpage.html", {"tasks": tasks})
+
+class TaskList(ListView):
+    model = TaskModel
+    template_name = "main/mainpage.html"
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return TaskModel.objects.none()
+        return TaskModel.objects.filter(user=user)
+
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = TaskModel.objects.all()
@@ -28,6 +35,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         serializer.save()
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
