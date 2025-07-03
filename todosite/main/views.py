@@ -45,7 +45,6 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def get_user_id(self, request):
         user = request.user
-        print(user.id)
         return Response({
             'id': user.id,
         })

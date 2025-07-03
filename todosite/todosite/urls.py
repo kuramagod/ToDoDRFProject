@@ -9,7 +9,6 @@ from main import views
 router = routers.DefaultRouter()
 router.register(r"tasks", views.TaskViewSet)
 router.register(r"users", views.UserViewSet)
-print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

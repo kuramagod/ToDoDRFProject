@@ -35,10 +35,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const regBtn = document.getElementById('regBtn');
     const closeRegBtn = document.getElementById('closeRegBtn');
     const logoutBtn = document.getElementById('logoutBtn');
+    const colorInput = document.querySelector('input[name="color"]');
+    const nameInput = document.querySelector('input[name="name"]');
+    const taskHeader = document.getElementById('taskHeader');
+
+    nameInput.style.backgroundColor = colorInput.value;
+    taskHeader.style.backgroundColor = colorInput.value;
+
+    colorInput.addEventListener('input', function () {
+      nameInput.style.backgroundColor = this.value;
+      taskHeader.style.backgroundColor = this.value;
+    });
 
     checkAuth();
 
     const editTaskBtns = document.querySelectorAll('.editTaskBtn');
+
     if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
         const response = await fetch(`/api-auth/logout/`, {
@@ -115,15 +127,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (addTaskBtn) {
-    addTaskBtn.addEventListener('click', () => {
-        // Очищаем форму для новой задачи
-        modalOverlay.querySelector('input[name="task_id"]').value = '';
-        modalOverlay.querySelector('input[name="name"]').value = '';
-        modalOverlay.querySelector('textarea[name="description"]').value = '';
-        modalOverlay.querySelector('input[name="end_date"]').value = '';
-        modalOverlay.querySelector('select[name="status"]').value = 'В процессе';
-        modalOverlay.style.display = 'flex';
-    });
+        addTaskBtn.addEventListener('click', () => {
+            // Очищаем форму для новой задачи
+            modalOverlay.querySelector('input[name="task_id"]').value = '';
+            modalOverlay.querySelector('input[name="name"]').value = '';
+            modalOverlay.querySelector('textarea[name="description"]').value = '';
+            modalOverlay.querySelector('input[name="end_date"]').value = '';
+            modalOverlay.querySelector('select[name="status"]').value = 'В процессе';
+
+            modalOverlay.style.display = 'flex';
+        });
     }
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

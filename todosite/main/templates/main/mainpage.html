@@ -15,7 +15,7 @@
     <div class="buttons-group">
       {% if user.is_authenticated %}
         <button class="add-task-btn" id="addTaskBtn">+ Добавить заметку</button>
-        <a class="logout" id="logoutBtn">Выход</a>
+        <button class="add-task-btn" id="logoutBtn">Выход</button>
       {% else %}
         <button class="add-task-btn" id="authBtn">Авторизация</button>
       {% endif %}
@@ -35,17 +35,16 @@
           </div>
         </div>
       {% endfor %}
-
   </div>
 
   <div class="modal-overlay" id="modalOverlay">
       <div class="task">
-        <div class="task-header"><input name="name" class="form-control" type="text" value="Имя заметки">
+        <div class="task-header"><input name="name" class="form-control" type="text" id="taskHeader" value="Имя заметки">
           <a class="close-task" id="closeTaskBtn">X</a>
         </div>
         <div class="task-content">
             <p class="task-color"><b>Цвет</b>:</p>
-            <input name="color" class="form-control" type="color" value="#ffffff">
+            <input name="color" class="form-control" type="color" value="#2154e2">
           <p class="task-description">Описание:</p> <textarea name="description" class="form-control">Описание задачи</textarea>
           <p class="task-deadline"><b>Срок</b>:</p><input name="end_date" class="form-control" type="datetime-local" value="">
             <input type="hidden" name="task_id" value="">
