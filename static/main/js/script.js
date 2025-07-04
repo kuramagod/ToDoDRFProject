@@ -9,7 +9,7 @@ async function get_user_id() {
             const data = await response.json();
             return data.id ?? null;
         } else {
-            return null; // Не авторизован
+            return null;
         }
     } catch (error) {
         console.error("Ошибка при получении ID пользователя:", error);
@@ -75,10 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     closeAuthBtn.addEventListener("click", async function () {
-        const userId = await get_user_id(); // проверяем авторизацию
+        const userId = await get_user_id();
 
         if (userId) {
-            modalAuth.style.display = "none"; // разрешаем закрытие
+            modalAuth.style.display = "none";
         }
     });
 
@@ -128,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (addTaskBtn) {
         addTaskBtn.addEventListener('click', () => {
-            // Очищаем форму для новой задачи
             modalOverlay.querySelector('input[name="task_id"]').value = '';
             modalOverlay.querySelector('input[name="name"]').value = '';
             modalOverlay.querySelector('textarea[name="description"]').value = '';
@@ -173,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (response.ok) {
-//            alert(id ? 'Задача обновлена!' : 'Задача создана!');
             location.reload();
             console.log(payload)
         } else {
@@ -193,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (response.ok) {
-//            alert('Задача удалена!');
             location.reload();
         } else {
             alert('Ошибка при удалении задачи');
@@ -212,9 +209,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(`/api-auth/login/?next=/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken, // Убедись, что он есть
+                    'X-CSRFToken': csrfToken,
                 },
-                credentials: 'include', // очень важно для сессий
+                credentials: 'include',
                 body: formData,
             });
 
